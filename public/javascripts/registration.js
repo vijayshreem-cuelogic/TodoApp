@@ -28,31 +28,15 @@
 	});
 })();
 
-(function(){
-  var form = document.getElementById('loginForm');
-	if(form)
-	{
-		form.addEventListener('submit', (event) => {
-			email = event.target.elements[0].value
-			//check users available in the list
-			if(!checkEmailExist())
-			{ 
-				form.append("Email does not exist")
-				return false
-			}
-			if(email)
-			{
-				localStorage.setItem("loggedIn", true);
-				localStorage.setItem("current_user", email)
-				newUrl = '/public/dashboard.html'
-				location.replace(newUrl) 
-				console.log(newUrl)
-			}
-		})
-	}
+var registration = (function(){
+  var loginForm = document.getElementById("registrationForm"), userData=[]
 
-	function checkEmailExist(email){
-		existingUsers = JSON.parse(localStorage.getItem("users"))||[]
-		return Array.from(existingUsers).some(user=> user.email==email)
-	}
+  loginForm.onsubmit = function(event){
+    usersItem = JSON.parse(localStorage.getItem("users"))
+    Array.from(event.target.elements).map(function(element){
+      { userData.push({[element.name]: element.value}) }
+    })
+    usersItem.push(userData)
+    localStorage.setItem("users", JSON.stringify(usersItem))
+  }
 })();

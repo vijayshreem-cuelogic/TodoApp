@@ -1,0 +1,17 @@
+.register{
+  padding-top: 30px;
+  width: 930px;
+  border: 3px solid darkgrey;
+  border-radius: 19px;
+  margin-top: 79px;
+  margin-left: 110px;
+  padding-left: 30px;
+  background: white;
+  min-height: auto;
+  border-bottom-width: 10px;
+  margin-bottom: 0px;
+  padding-bottom: 30px;
+}
+body{
+  background-color: aliceblue;
+}
