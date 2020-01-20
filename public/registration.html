@@ -7,8 +7,12 @@
           <div class="form-row">
             <div class="col-md-3 mb-3">
               <label for="profile_image">Profile Image</label>
-              <input type="file" class="form-control" name="profile_image" id="profile_image" required>
+              <input type="file" class="form-control" name="profile_image" id="profile_image">
+              <input type="hidden" name="avatar" id="avatarImg">
               <div class="profile_feedback"></div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <img src="avatar.png" alt="Avatar" class="avatar" id="preview">
             </div>
           </div>
           <div class="form-row">

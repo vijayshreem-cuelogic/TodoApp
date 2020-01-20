@@ -35,3 +35,22 @@
   text-decoration: none;
   cursor: pointer;
 }
+.logout {
+  margin-left: 900px;
+}
+
+.search{
+  padding-left: 30px;
+  padding-top: 10px;
+  margin-top: 10px;
+  border-left-width: 30px;
+  margin-left: 161px;
+  background-color: lightgray;
+  margin-right: 431px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+
+
+
+

@@ -34,10 +34,11 @@
 	{
 		form.addEventListener('submit', (event) => {
 			email = event.target.elements[0].value
+			password = event.target.elements[1].value
 			//check users available in the list
-			if(!checkEmailExist())
+			if(!checkEmailExist(email, password))
 			{ 
-				form.append("Email does not exist")
+				alert("Incorrect email or password")
 				return false
 			}
 			if(email)
@@ -45,14 +46,19 @@
 				localStorage.setItem("loggedIn", true);
 				localStorage.setItem("current_user", email)
 				newUrl = '/public/dashboard.html'
-				location.replace(newUrl) 
+				setTimeout(function () {
+					location.replace(newUrl);
+				}, 0);
 				console.log(newUrl)
 			}
 		})
 	}
 
-	function checkEmailExist(email){
+	function checkEmailExist(email, password){
 		existingUsers = JSON.parse(localStorage.getItem("users"))||[]
-		return Array.from(existingUsers).some(user=> user.email==email)
+		userExist = existingUsers.filter(function(user){
+			return (user.indexOf(email) == -1 && user.indexOf(password) == -1)
+		})
+		return userExist.length > 0
 	}
 })();

@@ -1,4 +1,5 @@
 (function(){
+    setTimeout(function(){disableBackButton();},0)
     allList = JSON.parse(localStorage.getItem("todoItems")), myItems = []
     if(allList)
     {
@@ -9,6 +10,13 @@
     }
     else{
       drawEmptyTable();
+    }
+
+    function disableBackButton(){
+      history.pushState(null, null, location.href);
+      window.onpopstate = function () {
+          history.go(1);
+      };
     }
 
     function drawEmptyTable(){
@@ -67,7 +75,7 @@ var dashboard = (function(){
         <div class="col-md-4">
           <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" name="title" autopopulate="off" required pattern="[A-Za-z]{1,10}">
+            <input type="text" class="form-control" id="title" name="title" autocomplete="off" required pattern="[A-Za-z]{1,10}">
           </div>
         </div>
 
@@ -96,7 +104,7 @@ var dashboard = (function(){
         <div class="col-md-4 form-group">
           <div>Date</div>
           <div class="input-group date" data-provide="datepicker1">
-            <input id="date2" class="datepicker1 form-control" name="date" data-date-format="mm/dd/yyyy" autopopulate="off">
+            <input id="date2" class="datepicker1 form-control" name="date" autocomplete="off" data-date-format="mm/dd/yyyy" autopopulate="off">
           </div>
         </div>
         <div class="col-md-4 form-group">
@@ -105,7 +113,7 @@ var dashboard = (function(){
         <div class="custom-file">
           <input id="avatar" type="file">
           <input type="hidden" name="avatar" id="avatarImg">
-          <div class="col-md-5"> <img src="" id="avatarDemo" width="55" height="55"></img></div>
+          <div class="col-md-5"> <img src="avatar.png" id="avatarDemo" width="55" height="55"></img></div>
         </div>
         </div
         </div>
@@ -114,7 +122,7 @@ var dashboard = (function(){
       <div class="row form-group">
         <div class="col-md-4">
           <div class="form-check">
-            <input type='checkbox' value='true' name="is_reminder" id="reminderSwitch" class="form-check-input" onchange='handleChange(this);' value="false">
+            <input type='checkbox' value='true' name="is_reminder" id="reminderSwitch" class="form-check-input" onchange='handleCheckboxChange(this);' value="false">
             <label class="form-check-label" for="reminderSwitch">
               Reminder?
             </label>
@@ -122,13 +130,13 @@ var dashboard = (function(){
           <div id="reminderDate"  style="display: none;">
             <div>Reminder Date</div>
             <div class="input-group" data-provide="datepicker">
-              <input id="date1" class="reminderDatepicker form-control" data-date-format="mm/dd/yyyy" name="reminder_date" autopopulate="off">
+              <input id="date1" class="reminderDatepicker form-control" autocomplete="off" data-date-format="mm/dd/yyyy" name="reminder_date" autopopulate="off">
             </div>
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-check">
-           <input type='checkbox'  id="checkPublic" name="is_public" class="form-check-input" onchange='handleChange(this);' value="false" autopopulate="off">
+           <input type='checkbox'  id="checkPublic" name="is_public" class="form-check-input" onchange='handleCheckboxChange(this);' value="false" autopopulate="off">
             <label class="form-check-label" for="is_public">
               is_Public?
             </label>
@@ -140,7 +148,14 @@ var dashboard = (function(){
       </div>
     </form>
   </div>`
-  $('.datepicker1').datepicker();
+  $('.datepicker1').datepicker(
+    { minDate: 'today',
+      onSelect: function(dateText) {
+      min = new Date(dateText);
+      window.reminder = min
+      $(".reminderDatepicker").datepicker('option', 'minDate', min);
+  }}
+  );
   }
 
   function modalHandler()
@@ -206,7 +221,12 @@ var dashboard = (function(){
       if(event.target.checked)
       {
         reminderCalendar.style.display = "block";
-        $('.reminderDatepicker').datepicker();
+        setDate = window.reminder || Date.today
+        
+        $(".reminderDatepicker").datepicker({
+          minDate: 0,
+          maxDate: setDate
+        });
       }
       else
       {
@@ -276,8 +296,54 @@ var dashboard = (function(){
           }
         }
      })
-     document.getElementById("avatarDemo").src = 
-     document.getElementById("avatarImg").value
+     document.getElementById("avatarDemo").src = document.getElementById("avatarImg").value
+  }
+
+  function logoutUser()
+  {
+    localStorage.removeItem('loggedIn')
+    window.location.replace('/public/index.html')
+  }
+
+  function search(thiss){
+    debugger
+    table = document.getElementById("todo_items")
+    tr = table.getElementsByTagName("tr");
+    startDate = new Date(thiss.form.elements.dateRange1.value)
+    endDate = new Date(thiss.form.elements.dateRange2.value)
+    category = Array.from(thiss.form.elements.search_category).filter(e=> e.checked).map(e=> e.value)
+    status_done = thiss.form.elements.status_pending.checked
+    status_pending = thiss.form.elements.status_pending.checked
+
+    for(let i=1; i<= tr.length; i++){
+      debugger
+      j=0, found = false
+      
+        if(startDate!==undefined || endDate!==undefined)
+        {
+          selectedDate = new Date (tr[i].getElementsByTagName("td")[2].innerText)
+          if(startDate && endDate && (startDate <= selectedDate <= endDate )){
+            found = true
+          }
+          categoryText = tr[i].getElementsByTagName("td")[3].innerText
+          if(categoryText.split(",").some(e=> category.includes(e)))
+          { found = true }
+          if(status_done)
+          {
+            statusText = tr[i].getElementsByTagName("td")[4].innerText
+            if(eval(statusText))
+            { found = true}
+          }
+          if(status_pending && (selectedDate > new Date))
+          {
+            found = true
+          }
+        }
+        if(found)
+        { tr[i].style.display = ""; }
+        else
+        { tr[i].style.display = "none"; }
+    }
   }
 
   return {
@@ -285,7 +351,9 @@ var dashboard = (function(){
     setReminder: setReminder,
     addItemModal: renderCreateItemModal,
     editItem: editItem,
-    deleteItem: deleteItem
+    deleteItem: deleteItem,
+    logout: logoutUser,
+    searchDashboard: search 
   }
 })();
 dashboardLayoutPromise = new Promise(function(resolve, reject){
@@ -299,7 +367,7 @@ dashboardLayoutPromise = new Promise(function(resolve, reject){
   return true
 })
 
-function handleChange(thiss){
+function handleCheckboxChange(thiss){
   thiss.value = thiss.checked
 }
 
@@ -337,4 +405,13 @@ function deleteItem(item)
     dashboard.deleteItem(itemId)
     location.reload()
   }
+}
+
+function logout(){
+  dashboard.logout();
+}
+
+function searchDashboard(event){
+  dashboard.searchDashboard(event);
+  return false
 }
