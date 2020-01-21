@@ -303,7 +303,7 @@ var dashboard = (function(){
   function logoutUser()
   {
     localStorage.removeItem('loggedIn')
-    window.location.replace('/public/index.html')
+    setTimeout(function(){ window.location.replace('/public/index.html') }, 0)
   }
 
   function search(thiss){
