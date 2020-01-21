@@ -67,95 +67,96 @@ var dashboard = (function(){
   {
     let modal = document.getElementById("createItem");
     modal.innerHTML = `<div class="modal-content">
-    <div col-md-12>
-    <span class="close">&times;</span>
-    </div>
-    <form id="createItemForm" class="validateLogin">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" name="title" autocomplete="off" required pattern="[A-Za-z]{1,10}">
+      <div col-md-12>
+      <span class="close">&times;</span>
+      </div>
+      <form id="createItemForm" class="validateLogin">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input type="text" class="form-control" id="title" name="title" autocomplete="off" required pattern="[A-Za-z]{1,10}">
+            </div>
           </div>
-        </div>
 
-        <div class="col-md-4 form-group">
-          <div>Category</div>
-          <div id="category_feedback" class="is-invalid" style="display: none">Please choose atleast one category</div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" name="category" type="checkbox" id="inlineCheckbox1" value="Personal">
-            <label class="form-check-label" for="inlineCheckbox1">Personal</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" name="category" id="inlineCheckbox01" value="Official">
-            <label class="form-check-label" for="inlineCheckbox1">Official</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" name="category" id="inlineCheckbox3" value="Technical">
-            <label class="form-check-label" for="inlineCheckbox3">Technical</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" name="category" id="inlineCheckbox21" value="General">
-            <label class="form-check-label" for="inlineCheckbox1">General</label>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4 form-group">
-          <div>Date</div>
-          <div class="input-group date" data-provide="datepicker1">
-            <input id="date2" class="datepicker1 form-control" name="date" autocomplete="off" data-date-format="mm/dd/yyyy" autopopulate="off">
-          </div>
-        </div>
-        <div class="col-md-4 form-group">
-        <div> Avatar</div>
-        <div class="input-group mb-3">
-        <div class="custom-file">
-          <input id="avatar" type="file">
-          <input type="hidden" name="avatar" id="avatarImg">
-          <div class="col-md-5"> <img src="avatar.png" id="avatarDemo" width="55" height="55"></img></div>
-        </div>
-        </div
-        </div>
-      </div>
-      </div>
-      <div class="row form-group">
-        <div class="col-md-4">
-          <div class="form-check">
-            <input type='checkbox' value='true' name="is_reminder" id="reminderSwitch" class="form-check-input" onchange='handleCheckboxChange(this);' value="false">
-            <label class="form-check-label" for="reminderSwitch">
-              Reminder?
-            </label>
-          </div>
-          <div id="reminderDate"  style="display: none;">
-            <div>Reminder Date</div>
-            <div class="input-group" data-provide="datepicker">
-              <input id="date1" class="reminderDatepicker form-control" autocomplete="off" data-date-format="mm/dd/yyyy" name="reminder_date" autopopulate="off">
+          <div class="col-md-4 form-group">
+            <div>Category</div>
+            <div id="category_feedback" class="is-invalid" style="display: none">Please choose atleast one category</div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" name="category" type="checkbox" id="inlineCheckbox1" value="Personal">
+              <label class="form-check-label" for="inlineCheckbox1">Personal</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" name="category" id="inlineCheckbox01" value="Official">
+              <label class="form-check-label" for="inlineCheckbox1">Official</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" name="category" id="inlineCheckbox3" value="Technical">
+              <label class="form-check-label" for="inlineCheckbox3">Technical</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" name="category" id="inlineCheckbox21" value="General">
+              <label class="form-check-label" for="inlineCheckbox1">General</label>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="form-check">
-           <input type='checkbox'  id="checkPublic" name="is_public" class="form-check-input" onchange='handleCheckboxChange(this);' value="false" autopopulate="off">
-            <label class="form-check-label" for="is_public">
-              is_Public?
-            </label>
+        <div class="row">
+          <div class="col-md-4 form-group">
+            <div>Date</div>
+            <div class="input-group date" data-provide="datepicker1">
+              <input id="date2" class="datepicker1 form-control" name="date" autocomplete="off" data-date-format="mm/dd/yyyy" autopopulate="off">
+            </div>
+          </div>
+          <div class="col-md-4 form-group">
+          <div> Avatar</div>
+          <div class="input-group mb-3">
+          <div class="custom-file">
+            <input id="avatar" type="file">
+            <input type="hidden" name="avatar" id="avatarImg">
+            <div class="col-md-5"> <img src="avatar.png" id="avatarDemo" width="55" height="55"></img></div>
+          </div>
+          </div
           </div>
         </div>
-      </div>
-      <button type="submit" class="btn btn-primary mb-2" id="save" >Save Item</button>						
-      </div>
-      </div>
-    </form>
-  </div>`
-  $('.datepicker1').datepicker(
-    { minDate: 'today',
-      onSelect: function(dateText) {
-      min = new Date(dateText);
-      window.reminder = min
-      $(".reminderDatepicker").datepicker('option', 'minDate', min);
-  }}
-  );
+        </div>
+        <div class="row form-group">
+          <div class="col-md-4">
+            <div class="form-check">
+              <input type='checkbox' value='true' name="is_reminder" id="reminderSwitch" class="form-check-input" onchange='handleCheckboxChange(this);' value="false">
+              <label class="form-check-label" for="reminderSwitch">
+                Reminder?
+              </label>
+            </div>
+            <div id="reminderDate"  style="display: none;">
+              <div>Reminder Date</div>
+              <div class="input-group" data-provide="datepicker">
+                <input id="date1" class="reminderDatepicker form-control" autocomplete="off" data-date-format="mm/dd/yyyy" name="reminder_date" autopopulate="off">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-check">
+            <input type='checkbox'  id="checkPublic" name="is_public" class="form-check-input" onchange='handleCheckboxChange(this);' value="false" autopopulate="off">
+              <label class="form-check-label" for="is_public">
+                is_Public?
+              </label>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary mb-2" id="save" >Save Item</button>						
+        </div>
+        </div>
+      </form>
+    </div>`
+    $('.datepicker1').datepicker(
+      { minDate: 'today',
+        onSelect: function(dateText) {
+          min = new Date(dateText);
+          window.reminder = min
+          $(".reminderDatepicker").datepicker('option', 'minDate', min);
+        }
+      }
+    );
   }
 
   function modalHandler()
@@ -239,10 +240,10 @@ var dashboard = (function(){
   function checkValidation(event){
     Array.from(event.target.elements).forEach(function(element){
       if(!element.checkValidity())
-        {
-          element.classList.remove('is-valid')
-          element.classList.add('is-invalid')
-        }
+      {
+        element.classList.remove('is-valid')
+        element.classList.add('is-invalid')
+      }
       else
       {
         element.classList.remove('is-invalid')
@@ -306,7 +307,6 @@ var dashboard = (function(){
   }
 
   function search(thiss){
-    debugger
     table = document.getElementById("todo_items")
     tr = table.getElementsByTagName("tr");
     startDate = new Date(thiss.form.elements.dateRange1.value)
@@ -316,7 +316,6 @@ var dashboard = (function(){
     status_pending = thiss.form.elements.status_pending.checked
 
     for(let i=1; i<= tr.length; i++){
-      debugger
       j=0, found = false
       
         if(startDate!==undefined || endDate!==undefined)
@@ -346,6 +345,39 @@ var dashboard = (function(){
     }
   }
 
+  function sortTable(columnIndex)
+  {
+    var tableData = document.getElementById('todo_items').getElementsByTagName('tbody').item(0);
+    var rowData = tableData.getElementsByTagName('tr'); 
+
+    for(var i = 0; i < rowData.length - 1; i++) {
+      for(var j = 0; j < rowData.length - (i + 1); j++) {
+        switch(columnIndex){
+          case 1:
+          case 3:
+          case 4:
+            if(rowData.item(j).getElementsByTagName('td').item(columnIndex).innerHTML > rowData.item(j+1).getElementsByTagName('td').item(columnIndex).innerHTML) {
+              //re-indexing
+              rowData.item(j+1).getElementsByTagName('td')[0].innerText= rowData.length-(i+1)
+              rowData.item(j).getElementsByTagName('td')[0].innerText= rowData.length-i
+              //swap rows
+              tableData.insertBefore(rowData.item(j+1),rowData.item(j));
+            }
+          break;
+          case 2:
+            if(new Date(rowData.item(j).getElementsByTagName('td').item(columnIndex).innerHTML) > new Date(rowData.item(j+1).getElementsByTagName('td').item(columnIndex).innerHTML)) {
+              //re-indexing
+              rowData.item(j+1).getElementsByTagName('td')[0].innerText= rowData.length-(i+1)
+              rowData.item(j).getElementsByTagName('td')[0].innerText= rowData.length-i
+              // swap rows
+              tableData.insertBefore(rowData.item(j+1),rowData.item(j));
+            }
+          break;
+        }
+      }
+    }
+  }
+
   return {
     modalHandler: modalHandler,
     setReminder: setReminder,
@@ -353,9 +385,11 @@ var dashboard = (function(){
     editItem: editItem,
     deleteItem: deleteItem,
     logout: logoutUser,
+    sortData: sortTable,
     searchDashboard: search 
   }
 })();
+
 dashboardLayoutPromise = new Promise(function(resolve, reject){
   dashboard.addItemModal();
   return resolve('success!')
@@ -371,21 +405,8 @@ function handleCheckboxChange(thiss){
   thiss.value = thiss.checked
 }
 
-function sortData() {
-  // Read table body node.
-  var tableData = document.getElementById('todo_items').getElementsByTagName('tbody').item(0);
-
-  // Read table row nodes.
-  var rowData = tableData.getElementsByTagName('tr'); 
-
-  for(var i = 0; i < rowData.length - 1; i++) {
-      for(var j = 0; j < rowData.length - (i + 1); j++) {
-        //Swap row nodes if short condition matches
-        if(rowData.item(j).getElementsByTagName('td').item(1).innerHTML > rowData.item(j+1).getElementsByTagName('td').item(0).innerHTML) {
-          tableData.insertBefore(rowData.item(j+1),rowData.item(j));
-        }
-      }
-  }
+function sortData(columnIndex) {
+  dashboard.sortData(columnIndex)
 }
 
 function parseNodeId(item){
@@ -413,5 +434,14 @@ function logout(){
 
 function searchDashboard(event){
   dashboard.searchDashboard(event);
-  return false
+  return false;
 }
+
+$('#dateRange2').datepicker()
+$("#dateRange1").datepicker({
+  minDate: 'today',
+  onSelect: function(dateText) {
+    min = new Date(dateText);
+    $("#dateRange2").datepicker('option', 'minDate', min);
+  }
+});

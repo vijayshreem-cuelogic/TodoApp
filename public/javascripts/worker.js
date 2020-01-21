@@ -2,7 +2,7 @@
   var worker;
   if (typeof(Worker) !== "undefined") {
     if (typeof(worker) == "undefined") {
-        worker = new Worker('javascripts/background_worker.js');
+      worker = new Worker('javascripts/background_worker.js');
     }
     worker.onmessage = function(event) {
       if(event.data == 'logout')

@@ -1,27 +1,26 @@
 <head>
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-		<link rel="stylesheet" href="/resources/demos/style.css">
-		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-		<script src="javascripts/worker.js"></script>
-
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <body>
-			<ul class="nav nav-tabs" id="myTab" role="tablist">
-				<li class="nav-item">
-					<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="profile.html" tabindex="-1">Profile</a>
-				</li>
-				<li><a class="btn btn-primary" href="#" tabindex="-1" id="addItem">New TODO</a></li>
-				<li class="nav-item">
-					<a class="nav-link logout" href="#" tabindex="-2" onclick="logout();">Logout</a>
-				</li>		
-			</ul>
-			<div class="search">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="/resources/demos/style.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+	<script src="javascripts/worker.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<body>
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="profile.html" tabindex="-1">Profile</a>
+			</li>
+			<li><a class="btn btn-primary" href="#" tabindex="-1" id="addItem">New TODO</a></li>
+			<li class="nav-item">
+				<a class="nav-link logout" href="#" tabindex="-2" onclick="logout();">Logout</a>
+			</li>		
+		</ul>
+		<div class="search">
 			<form id="searchForm">
 				<div class="form-row">
 					<div class="form-group col-md-2">
@@ -31,7 +30,7 @@
 					<div class="form-group col-md-2">
 						<label for="dateRange2">End Date</label>
 						<input type="text" id="dateRange2" name="endDate" class="form-control" autocomplete="off">
-					</div>
+					</div>	
 					<div class="form-group col-md-4">
 						<div>Category</div>
 						<div class="form-check form-check-inline">
@@ -63,48 +62,37 @@
 						</div>
 					</div>
 				</div>
-			
 				<button type="submit" class="btn btn-primary" onclick="searchDashboard(this);">Search</button>
 			</form>
 		</div>
-			<div class="tab-content" id="myTabContent">
-				<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-						<table class="table" id="todo_items">
-							<thead class="thead-light">
-							<tr>
-								<th scope="col">#</th>
-								<th scope="col"><a href="#" onclick="sortData();"></a>Title</a></th>
-								<th scope="col">Date</th>
-								<th scope="col">Category</th>
-								<th scope="col">Status</th>
-								<th scope="col">Action</th>
-							</tr>
-						</thead>
-						<tbody></tbody>
-					</table>
-				</div>
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+				<table class="table" id="todo_items">
+					<thead class="thead-light">
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col"><a href="#" onclick="sortData(1);">Title</a></th>
+							<th scope="col"><a href="#" onclick="sortData(2);">Date</a></th>
+							<th scope="col"><a href="#" onclick="sortData(3);">Category</a></th>
+							<th scope="col"><a href="#" onclick="sortData(4);"> Status </a></th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
 			</div>
-			<div id="createItem" class="modal">
-				<!-- Modal content -->
-			</div>
-    </body>
+		</div>
+		<div id="createItem" class="modal">
+			<!-- Modal content -->
+		</div>
+	</body>
 </head>
 <script>
 	var importDashboard = document.createElement('script');
-  importDashboard.src = 'javascripts/dashboard.js'
+	importDashboard.src = 'javascripts/dashboard.js'
 	document.head.appendChild(importDashboard);
-	
+
 	var link = document.createElement('link');   
 	link.rel = 'stylesheet', link.type = 'text/css', link.href = 'stylesheets/dashboard.css';  
 	document.head.appendChild(link);
-	
-	$('#dateRange2').datepicker()
-
-	$("#dateRange1").datepicker({
-    minDate: 'today',
-    onSelect: function(dateText) {
-        min = new Date(dateText);
-        $("#dateRange2").datepicker('option', 'minDate', min);
-    }
-});
 </script>

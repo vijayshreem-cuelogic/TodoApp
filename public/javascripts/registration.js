@@ -1,28 +1,28 @@
 (function(){
 	//"use strict"; 
-	var inputs = document.getElementsByClassName('validateLogin');
+	var inputs = document.getElementsByClassName('validateSignup');
 	Array.prototype.forEach.call(inputs, (input) => {
 		input.addEventListener('keyup', (element) => {
 			try 
 			{
 				if(!element.target.checkValidity())
-					{
-						element.target.classList.remove('is-valid')
-						element.target.classList.add('is-invalid')
-						document.getElementsByClassName("btn-primary")[0].disabled= true
-					}
+				{
+					element.target.classList.remove('is-valid')
+					element.target.classList.add('is-invalid')
+					document.getElementsByClassName("btn-primary")[0].disabled= true
+				}
 				else
 				{
 					element.target.classList.remove('is-invalid')
 					element.target.classList.add('is-valid')
 					document.getElementsByClassName("btn-primary")[0].disabled= false
 				}
-			} catch (error) {
+			} 
+			catch (error) {
 				document.getElementsByClassName(element.target.name+"_feedback")[0].innerHTML = error;
 			}
 			finally
 			{
-				debugger
 				document.getElementsByClassName(element.target.name+"_feedback")[0].innerHTML = element.target.validationMessage;
 			}
 		})
@@ -30,9 +30,9 @@
 })();
 
 var registration = (function(){
-  var loginForm = document.getElementById("registrationForm"), userData=[]
+  var signupForm = document.getElementById("registrationForm"), userData=[]
 	var profileIcon = document.getElementById("profile_image")
-  loginForm.onsubmit = function(event){
+  signupForm.onsubmit = function(event){
 		try
 		{
 			event.preventDefault();
@@ -49,7 +49,7 @@ var registration = (function(){
 		catch(e)
 		{
 			alert(e)
-			loginForm.reset();
+			signupForm.reset();
 		}
 	}
 	

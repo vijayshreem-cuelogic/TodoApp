@@ -6,11 +6,11 @@
 			try 
 			{
 				if(!element.target.checkValidity())
-					{
-						element.target.classList.remove('is-valid')
-						element.target.classList.add('is-invalid')
-						document.getElementsByClassName("btn-primary")[0].disabled= true
-					}
+				{
+					element.target.classList.remove('is-valid')
+					element.target.classList.add('is-invalid')
+					document.getElementsByClassName("btn-primary")[0].disabled= true
+				}
 				else
 				{
 					element.target.classList.remove('is-invalid')
