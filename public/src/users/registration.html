@@ -12,7 +12,7 @@
             <div class="profile_feedback"></div>
           </div>
           <div class="col-md-3 mb-3">
-            <img src="avatar.png" alt="Avatar" class="avatar" id="preview">
+            <img src="/public/images/avatar.png" alt="Avatar" class="avatar" id="preview">
           </div>
         </div>
         <div class="form-row">
@@ -68,18 +68,18 @@
           </div>
         </div>
         <button class="btn btn-primary" type="submit">Signup</button>
-        <a class="btn btn-info" href="/public/index.html">Back</a>
+        <a class="btn btn-info" href="/public/src/users/login.html">Back</a>
       </form>
     </div>
   </body>
   <script>
     // Include JS file
     var importValidation = document.createElement('script');
-    importValidation.src = 'javascripts/registration.js'
+    importValidation.src = '/public/javascripts/users/registration.js'
     document.head.appendChild(importValidation);
     // Include Css 
     var link = document.createElement('link');   
-    link.rel = 'stylesheet', link.type = 'text/css', link.href = 'stylesheets/registration.css';  
+    link.rel = 'stylesheet', link.type = 'text/css', link.href = '/public/stylesheets/users/registration.css';  
     document.head.appendChild(link);
   </script>
 </head>

@@ -18,7 +18,7 @@
             </div>
             <div class="form-group col">
               <button type="submit" class="btn btn-primary">Login</button>
-              <a href="/public/registration.html">New User?</a>
+              <a href="/public/src/users/registration.html">New User?</a>
             </div>
           </form>
         </div>
@@ -29,10 +29,10 @@
 <script>
   // Include JS file
   var importValidation = document.createElement('script');
-  importValidation.src = 'javascripts/login.js'
+  importValidation.src = '/public/javascripts/users/login.js'
   document.head.appendChild(importValidation);
  // Include Css 
   var link = document.createElement('link');   
-	link.rel = 'stylesheet', link.type = 'text/css', link.href = 'stylesheets/style.css';  
+	link.rel = 'stylesheet', link.type = 'text/css', link.href = '/public/stylesheets/dashboard/style.css';  
   document.head.appendChild(link);
 </script>

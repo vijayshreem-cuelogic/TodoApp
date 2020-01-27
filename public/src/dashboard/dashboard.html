@@ -5,15 +5,12 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-	<script src="javascripts/worker.js"></script>
+	<script src="/public/javascripts/workers/worker.js"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<body>
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
 			<li class="nav-item">
 				<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="profile.html" tabindex="-1">Profile</a>
 			</li>
 			<li><a class="btn btn-primary" href="#" tabindex="-1" id="addItem">New TODO</a></li>
 			<li class="nav-item">
@@ -62,7 +59,7 @@
 						</div>
 					</div>
 				</div>
-				<button type="submit" class="btn btn-primary" onclick="searchDashboard(this);">Search</button>
+				<button type="button" class="btn btn-primary" onclick="searchDashboard(this);">Search</button>
 			</form>
 		</div>
 		<div class="tab-content" id="myTabContent">
@@ -89,10 +86,10 @@
 </head>
 <script>
 	var importDashboard = document.createElement('script');
-	importDashboard.src = 'javascripts/dashboard.js'
+	importDashboard.src = '/public/javascripts/dashboard/dashboard.js'
 	document.head.appendChild(importDashboard);
 
 	var link = document.createElement('link');   
-	link.rel = 'stylesheet', link.type = 'text/css', link.href = 'stylesheets/dashboard.css';  
+	link.rel = 'stylesheet', link.type = 'text/css', link.href = '/public/stylesheets/dashboard/dashboard.css';  
 	document.head.appendChild(link);
 </script>
