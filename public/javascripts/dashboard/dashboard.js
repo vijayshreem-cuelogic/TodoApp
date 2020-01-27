@@ -305,14 +305,14 @@
       setTimeout(function(){ window.location.replace('/public/src/users/login.html') }, 0)
     }
 
-    function search(thiss){
+    function search(self){
       table = document.getElementById("todo_items")
       tr = table.getElementsByTagName("tr");
-      startDate = new Date(thiss.form.elements.dateRange1.value)
-      endDate = new Date(thiss.form.elements.dateRange2.value)
-      category = Array.from(thiss.form.elements.search_category).filter(e=> e.checked).map(e=> e.value)
-      status_done = thiss.form.elements.status_done.checked
-      status_pending = thiss.form.elements.status_pending.checked
+      startDate = new Date(self.form.elements.dateRange1.value)
+      endDate = new Date(self.form.elements.dateRange2.value)
+      category = Array.from(self.form.elements.search_category).filter(e=> e.checked).map(e=> e.value)
+      status_done = self.form.elements.status_done.checked
+      status_pending = self.form.elements.status_pending.checked
 
       for(let i=1; i< tr.length; i++){
         j=0, found = false
@@ -400,8 +400,8 @@ dashboardLayoutPromise = new Promise(function(resolve, reject){
   return true
 })
 
-function handleCheckboxChange(thiss){
-  thiss.value = thiss.checked
+function handleCheckboxChange(self){
+  self.value = self.checked
 }
 
 function sortData(columnIndex) {
