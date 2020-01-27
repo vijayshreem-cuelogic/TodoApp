@@ -14,8 +14,8 @@ var Login = (function(){
 			}
 			if(email)
 			{
-				localStorage.setItem("loggedIn", true);
-				localStorage.setItem("current_user", email)
+				TodoStorage.set(localStorage, "loggedIn", true);
+				TodoStorage.set(localStorage, "current_user", email)
 				newUrl = '/public/src/dashboard/dashboard.html'
 				setTimeout(function () {
 					location.replace(newUrl);
@@ -26,7 +26,7 @@ var Login = (function(){
 	}
 
 	function checkEmailExist(email, password){
-		existingUsers = JSON.parse(localStorage.getItem("users"))||[]
+		existingUsers = JSON.parse(TodoStorage.fetch(localStorage, "users"))||[]
 		userExist = existingUsers.filter(function(user){
 			return ((user.some(element=> element.email === email)) && (user.some(element=> element.password === password)))
 		})

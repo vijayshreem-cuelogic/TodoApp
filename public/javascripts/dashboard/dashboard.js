@@ -1,69 +1,67 @@
-  var dashboard = (function(){
+  (function(){
+    setTimeout(function(){disableBackButton();},0)
+    allList = JSON.parse(TodoStorage.fetch(localStorage,"todoItems")), myItems = []
+    if(allList)
+    {
+      todoList = allList.filter(function(obj){
+        return (obj.some(ele=> ele.email == TodoStorage.fetch(localStorage,"current_user")))
+      })
+      drawItemsTable(todoList)
+    }
+    else{
+      drawEmptyTable();
+    }
 
-    (function(){
-      setTimeout(function(){disableBackButton();},0)
-      allList = JSON.parse(localStorage.getItem("todoItems")), myItems = []
-      if(allList)
-      {
-        todoList = allList.filter(function(obj){
-          return (obj.some(ele=> ele.email == localStorage.getItem("current_user")))
-        })
-        drawItemsTable(todoList)
-      }
-      else{
-        drawEmptyTable();
-      }
+    function disableBackButton(){
+      history.pushState(null, null, location.href);
+      window.onpopstate = function () {
+          history.go(1);
+      };
+    }
 
-      function disableBackButton(){
-        history.pushState(null, null, location.href);
-        window.onpopstate = function () {
-            history.go(1);
-        };
-      }
+    function drawEmptyTable(){
+      let tab = document.getElementById("todo_items").getElementsByTagName('tbody')[0]
+      var tblrw = document.createElement('tr');
+      var tbltd = document.createElement('td');
+      tbltd.colSpan=5
+      var tbldata = document.createTextNode("No items found")
+      tbltd.appendChild(tbldata);
+      tblrw.appendChild(tbltd);
+      tab.appendChild(tblrw);
+    }
 
-      function drawEmptyTable(){
-        let tab = document.getElementById("todo_items").getElementsByTagName('tbody')[0]
-        var tblrw = document.createElement('tr');
-        var tbltd = document.createElement('td');
-        tbltd.colSpan=5
-        var tbldata = document.createTextNode("No items found")
-        tbltd.appendChild(tbldata);
-        tblrw.appendChild(tbltd);
-        tab.appendChild(tblrw);
-      }
-
-      function drawItemsTable(todoList){
-        cols = { 0: "title", 1:"date", 2:"category" , 3: "is_public"}
-        var tab = document.getElementById("todo_items").getElementsByTagName('tbody')[0]
-        if(! todoList)
-          return drawEmptyTable();
-        else
-        { 
-          todoList.forEach(function(item, index){
-            var tblrw = document.createElement('tr');
-            tblrw.id="item_"+index
-            var tbltd = document.createElement('td');
-            var tbldata = document.createTextNode(index+1)
+    function drawItemsTable(todoList){
+      cols = { 0: "title", 1:"date", 2:"category" , 3: "is_public"}
+      var tab = document.getElementById("todo_items").getElementsByTagName('tbody')[0]
+      if(! todoList)
+        return drawEmptyTable();
+      else
+      { 
+        todoList.forEach(function(item, index){
+          var tblrw = document.createElement('tr');
+          tblrw.id="item_"+index
+          var tbltd = document.createElement('td');
+          var tbldata = document.createTextNode(index+1)
+          tbltd.appendChild(tbldata);
+          tblrw.appendChild(tbltd);
+          for(let [key,value] in cols){
+            var tbltd = document.createElement('td');  
+            var tbldata = document.createTextNode(item.map(entry=> entry[cols[key]]).filter(entry=>entry).join())
             tbltd.appendChild(tbldata);
             tblrw.appendChild(tbltd);
-            for(let [key,value] in cols){
-              var tbltd = document.createElement('td');  
-              var tbldata = document.createTextNode(item.map(entry=> entry[cols[key]]).filter(entry=>entry).join())
-              tbltd.appendChild(tbldata);
-              tblrw.appendChild(tbltd);
-            }
-            var span = document.createElement('span');
-            span.innerHTML = `<a href="#" class="btn btn-info btn-sm" onclick="editItem(this)">Edit</a> &nbsp; | 
-                          &nbsp; <a href="#" class="btn btn-info btn-sm" onclick="deleteItem(this)">Delete</a>`
-            var tbltd = document.createElement('td');
-            tbltd.appendChild(span);
-            tblrw.appendChild(tbltd);
-            tab.appendChild(tblrw);
-          })
-        }
+          }
+          var span = document.createElement('span');
+          span.innerHTML = `<a href="#" class="btn btn-info btn-sm" onclick="editItem(this)">Edit</a> &nbsp; | 
+                        &nbsp; <a href="#" class="btn btn-info btn-sm" onclick="deleteItem(this)">Delete</a>`
+          var tbltd = document.createElement('td');
+          tbltd.appendChild(span);
+          tblrw.appendChild(tbltd);
+          tab.appendChild(tblrw);
+        })
       }
-    })();
-
+    }
+  })();
+  var dashboard = (function(){
     function renderCreateItemModal()
     {
       let modal = document.getElementById("createItem");
@@ -169,12 +167,12 @@
       avatarFile = document.getElementById("avatar");
 
       function editActionCheck(){
-        existingArray = (JSON.parse(localStorage.getItem("todoItems")) || [])
+        existingArray = (JSON.parse(TodoStorage.fetch(localStorage,"todoItems")) || [])
         index = document.getElementById("save").getAttribute("index")
         if(index != undefined)
         {
           existingArray.splice(index, 1)
-          localStorage.setItem("todoItems", JSON.stringify(existingArray))
+          TodoStorage.set(localStorage,"todoItems", JSON.stringify(existingArray))
         }
       }
       btn.onclick = function() {
@@ -197,10 +195,10 @@
           if(element.name !== "category"){ itemHash.push({[element.name]: element.value}) }
         })
         itemHash.push(categoryList)
-        itemHash.push({["email"]: localStorage.getItem("current_user")})
-        existingArray = (JSON.parse(localStorage.getItem("todoItems")) || [])
+        itemHash.push({["email"]: TodoStorage.fetch(localStorage,"current_user")})
+        existingArray = (JSON.parse(TodoStorage.fetch(localStorage,"todoItems")) || [])
         existingArray.push(itemHash)
-        localStorage.setItem("todoItems",JSON.stringify(existingArray))
+        TodoStorage.set(localStorage,"todoItems",JSON.stringify(existingArray))
         closeBtn.click();
         location.reload();
       }
@@ -254,7 +252,7 @@
     }
 
     function getItemByIndex(index){
-      itemArray = JSON.parse(localStorage.getItem("todoItems"))
+      itemArray = JSON.parse(TodoStorage.fetch(localStorage,"todoItems"))
       return itemArray[index]
     }
 
@@ -267,9 +265,9 @@
     }
 
     function deleteItem(index){
-      itemArray = JSON.parse(localStorage.getItem("todoItems"))
+      itemArray = JSON.parse(TodoStorage.fetch(localStorage,"todoItems"))
       itemArray.splice(index, 1)
-      localStorage.setItem("todoItems", JSON.stringify(itemArray))
+      TodoStorage.set(localStorage,"todoItems", JSON.stringify(itemArray))
     }
 
     function setModalValues(itemElement){
@@ -303,7 +301,7 @@
 
     function logoutUser()
     {
-      localStorage.removeItem('loggedIn')
+      TodoStorage.remove(localStorage, 'loggedIn')
       setTimeout(function(){ window.location.replace('/public/src/users/login.html') }, 0)
     }
 

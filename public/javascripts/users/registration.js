@@ -6,12 +6,12 @@ var registration = (function(){
 		{
 			event.preventDefault();
 			event.stopPropagation();
-			usersItem = JSON.parse(localStorage.getItem("users")) || []
+			usersItem = JSON.parse(TodoStorage.fetch(localStorage, "users")) || []
 			Array.from(event.target.elements).map(function(element){
 				{ userData.push({[element.name]: element.value}) }
 			})
 			usersItem.push(userData)
-			localStorage.setItem("users", JSON.stringify(usersItem))
+			TodoStorage.set(localStorage, "users", JSON.stringify(usersItem))
 			alert("Signup successfully!")
 			location.replace('/public/src/users/login.html')
 		}
